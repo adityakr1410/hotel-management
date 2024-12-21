@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Page</title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.form-container {
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 400px;
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 20px;
+	color: #333;
+}
+
+.input-group {
+	margin-bottom: 15px;
+}
+
+.input-group label {
+	display: block;
+	font-size: 14px;
+	margin-bottom: 5px;
+}
+
+.input-group input {
+	width: 100%;
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+	border-color: #007BFF;
+	outline: none;
+}
+
+button {
+	width: 100%;
+	padding: 12px;
+	background-color: #007BFF;
+	color: white;
+	font-size: 16px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+button:hover {
+	background-color: #0056b3;
+}
+
+.success-message, .error-message {
+	text-align: center;
+	margin-bottom: 15px;
+	font-size: 14px;
+}
+
+.success-message {
+	color: green;
+}
+
+.error-message {
+	color: red;
+}
+
+.login-link {
+	text-align: center;
+	margin-top: 15px;
+	font-size: 14px;
+}
+
+.login-link a {
+	color: #007BFF;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.login-link a:hover {
+	text-decoration: underline;
+}
+</style>
+<script>
+    // Function to display the success or error message
+    function displayMessages() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const successMsg = urlParams.get('successMsg');
+        const errorMsg = urlParams.get('errorMsg');
+
+        if (successMsg) {
+            const successMessageDiv = document.getElementById('success-message');
+            successMessageDiv.innerHTML = successMsg;
+            successMessageDiv.style.display = 'block';
+        }
+
+        if (errorMsg) {
+            const errorMessageDiv = document.getElementById('error-message');
+            errorMessageDiv.innerHTML = errorMsg;
+            errorMessageDiv.style.display = 'block';
+        }
+    }
+
+    // Run the function when the page loads
+    window.onload = displayMessages;
+</script>
+</head>
+<body>
+	<div class="form-container">
+		<h2>Register</h2>
+
+		<!-- Display success message -->
+		<div class="success-message" id="success-message" style="display:none;"></div>
+
+		<!-- Display error message -->
+		<div class="error-message" id="error-message" style="display:none;"></div>
+
+		<!-- Registration form -->
+		<form action="/regForm" method="POST">
+			
+			<div class="input-group">
+				<label for="name">Name</label>
+				<input type="text" id="name" name="name" placeholder="Enter your name" required>
+			</div>
+			<div class="input-group">
+				<label for="email">Email</label>
+				<input type="email" id="email" name="email" placeholder="Enter your email" required>
+			</div>
+			<div class="input-group">
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" placeholder="Enter your password" required>
+			</div>
+
+			<button type="submit">Register</button>
+		</form>
+
+		<!-- Link to login page for already registered users -->
+		<div class="login-link">
+			<p>If already registered, <a href="/loginPage"><b>Click here to login</b></a>.</p>
+		</div>
+	</div>
+</body>
+</html>

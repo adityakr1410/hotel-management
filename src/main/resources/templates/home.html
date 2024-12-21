@@ -1,12 +1,236 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            overflow: hidden; /* Prevent scrolling during animation */
+        }
+
+        /* Curtain Overlay */
+        .curtain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            z-index: 9999;
+        }
+
+        .curtain .left, .curtain .right {
+            flex: 1;
+            background: linear-gradient(90deg, #FFEBB7, #FFEBB7);
+            animation: curtain-slide 2s ease forwards;
+        }
+
+        .curtain .right {
+            animation: curtain-slide-right 2s ease forwards;
+        }
+
+        @keyframes curtain-slide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes curtain-slide-right {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Login and Register Buttons */
+        .auth-section {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-section a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .auth-section a:hover {
+            background: #0056b3;
+        }
+
+        /* Main Styles */
+        header {
+            background: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            color: #ff5722;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            margin: 0 0 10px;
+        }
+
+        .cta {
+            background: #ff5722;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .cta:hover {
+            background: #e64a19;
+        }
+
+        .image-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background: #f1f1f1;
+            margin-top: 20px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .auth-section a {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="curtain">
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
 
-<h1>Hello from home page</h1>
-<h2 th:text="${message}">  </h2>
+    <div class="auth-section">
+        <a href="loginPage">Login</a>
+        <a href="regPage">Register</a>
+    
+    </div>
+
+    <header>
+        <h1>Hotel Management System</h1>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <h2>Welcome to Our Hotel</h2>
+            <p>Our Hotel Management System simplifies the operations of managing reservations, rooms, and services. Providing a seamless experience for guests and staff alike.</p>
+        </div>
+
+        <div class="image-section">
+            <img src="https://www.hotelieracademy.org/wp-content/uploads/2021/02/Hotel-Lobby-Design.jpg" alt="Hotel Lobby">
+        </div>
+
+        <div class="section">
+            <h2>Features</h2>
+            <ul>
+                <li>Room Reservation System</li>
+                <li>Guest Check-In and Check-Out</li>
+                <li>Room Service Management</li>
+                <li>Billing and Invoice Generation</li>
+            </ul>
+        </div>
+
+        <div class="image-section">
+            <img src="https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg" alt="Luxury Room">
+        </div>
+
+        <div class="section">
+            <h2>Benefits</h2>
+            <p>Enhance guest satisfaction with efficient and accurate management of bookings and services. Our system ensures seamless operations and improved staff productivity.</p>
+        </div>
+
+        <div class="cta">Explore Our System</div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Hotel Management System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Remove the curtain after animation ends
+        document.addEventListener("DOMContentLoaded", function () {
+            const curtain = document.querySelector('.curtain');
+            curtain.addEventListener('animationend', () => {
+                curtain.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Allow scrolling again
+            });
+        });
+    </script>
 </body>
 </html>
