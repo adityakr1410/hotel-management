@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:mysql://mysql-627b946-itsaditya1410-ac06.l.aivencloud.com:10858/defaultdb?ssl-mode=REQUIRED
+    username: avnadmin
+    password: AVNS_ShSUJng_uSOHfbtKfJX
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+    database-platform: org.hibernate.dialect.MySQL8Dialect

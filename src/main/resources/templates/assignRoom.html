@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base}">
+<head>
+  <title>Assign Room</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <header class="bg-white shadow">
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900">Assign Room</h1>
+    </div>
+  </header>
+  <main>
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <div class="bg-white px-6 py-10 sm:py-12 lg:px-8 shadow rounded-md">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Room Details</h2>
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <p class="font-medium text-gray-700">Room Number:</p>
+            <p class="text-gray-900" th:text="${room.roomNo}"></p>
+          </div>
+          <div>
+            <p class="font-medium text-gray-700">Is AC:</p>
+            <p class="text-gray-900" th:text="${room.isAc == 1 ? 'Yes' : 'No'}"></p>
+          </div>
+          <div>
+            <p class="font-medium text-gray-700">Is Deluxe:</p>
+            <p class="text-gray-900" th:text="${room.isDeluxe == 1 ? 'Yes' : 'No'}"></p>
+          </div>
+        </div>
+
+        <form th:action="@{/assignRoom}" th:method="POST" class="mt-8">
+          <input type="hidden" th:field="${room.id}" name="roomId">
+
+          <div>
+            <label for="customerSelect" class="block text-sm font-medium text-gray-700">Select Customer</label>
+            <select id="customerSelect" name="customerId" required
+                    class="mt-1 block w-full rounded-md border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+              <option value="" disabled selected>Select a customer</option>
+              <option th:each="customer : ${customerList}"
+                      th:value="${customer.id}"
+                      th:text="${customer.firstName} + ' ' + ${customer.lastName}">
+              </option>
+            </select>
+
+          </div>
+
+          <div class="mt-6">
+            <button type="submit"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+              Assign Room
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base}">
+<head>
+    <title>All Rooms</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <header class="bg-white shadow">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">All Rooms</h1>
+        </div>
+    </header>
+    <main>
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <a th:href="@{/addNewRoom}" class="bg-blue-600 font-medium px-3 py-2 rounded-md text-sm text-white inline-block mb-5 hover:bg-blue-700">Add new Room</a>
+            <table class="table-auto w-full">
+                <thead class="bg-gray-800 text-white uppercase">
+                <tr>
+                    <th class="px-6 py-3 text-center">Room No</th>
+                    <th class="px-6 py-3 text-center">AC</th>
+                    <th class="px-6 py-3 text-center">Deluxe</th>
+                    <th class="px-6 py-3 text-center">Assigned Customer</th>
+                    <th class="px-6 py-3 text-center"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="bg-white border-b" th:each="room : ${roomList}">
+                    <td class="px-6 py-5 text-center" th:text="${room.roomNo}"></td>
+                    <td class="px-6 py-5 text-center" th:text="${room.isAc == 1 ? 'Yes' : 'No'}"></td>
+                    <td class="px-6 py-5 text-center" th:text="${room.isDeluxe == 1 ? 'Yes' : 'No'}"></td>
+
+
+                    <td class="px-6 py-5 text-center">
+                        <div th:classappend="${room.assignedCustomer != null ? 'bg-red-200 text-red-900' : 'bg-green-200 text-green-900'}"
+                             class="p-2 rounded-md">
+                            <a th:if="${room.assignedCustomer != null} "
+                               th:href="@{deassign/{id}(id=${room.bookingId.id})}"
+                               th:text="${'Assigned to ' + room.assignedCustomer.firstName + ' ' + room.assignedCustomer.lastName}"
+                               onmouseover="this.innerHTML='Click to Check Out'">
+
+                            </a>
+                            <span th:if="${room.assignedCustomer == null}" th:text="Available">
+
+                            </span>
+                        </div>
+                    </td>
+
+
+                    <td class="px-6 py-5 text-center">
+                        <!-- Show Customer button if assignedCustomer is not null -->
+                        <a th:if="${room.assignedCustomer != null}" th:href="@{customer/{id}(id=${room.assignedCustomer.id})}"
+                           class="bg-green-600 font-medium hover:bg-green-700 px-3 py-2 rounded-md text-sm text-white mr-1">
+                            Show Customer</a>
+
+                        <!-- Assign Customer button if assignedCustomer is null -->
+                        <a th:if="${room.assignedCustomer == null}" th:href="@{assignRoom/{id}(id=${room.id})}"
+                           class="bg-yellow-600 font-medium hover:bg-yellow-700 px-3 py-2 rounded-md text-sm text-white mr-1">
+                            Assign Customer</a>
+
+                        <!-- Edit button always available -->
+                        <a th:href="@{room/{id}/edit(id=${room.id})}"
+                           class="bg-blue-600 font-medium hover:bg-blue-700 px-3 py-2 rounded-md text-sm text-white mr-1">
+                            Edit </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+</body>
+</html>
